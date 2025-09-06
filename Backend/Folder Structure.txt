@@ -1,0 +1,54 @@
+ecommerce-backend/
+│
+├── server.js
+├── .env
+├── package.json
+│
+├── config/
+│   └── db.js
+│
+├── models/
+│   ├── User.js
+│   ├── Product.js
+│   ├── Category.js
+│   ├── Cart.js
+│   ├── Order.js
+│   ├── Testimonial.js
+│   ├── Faq.js
+│   └── Contact.js
+│
+├── controllers/
+│   ├── authController.js
+│   ├── userController.js
+│   ├── productController.js
+│   ├── categoryController.js
+│   ├── cartController.js
+│   ├── orderController.js
+│   ├── testimonialController.js
+│   ├── faqController.js
+│   └── contactController.js
+│
+├── routes/
+│   ├── authRoutes.js
+│   ├── userRoutes.js
+│   ├── productRoutes.js
+│   ├── categoryRoutes.js
+│   ├── cartRoutes.js
+│   ├── orderRoutes.js
+│   ├── testimonialRoutes.js
+│   ├── faqRoutes.js
+│   └── contactRoutes.js
+│
+├── middlewares/
+│   ├── authMiddleware.js
+│   ├── errorMiddleware.js
+│   └── uploadMiddleware.js    # 🆕 Multer middleware for file uploads
+│
+├── uploads/                   # 🆕 Folder where uploaded files are stored
+│   └── (images saved here)
+│
+├── utils/
+│   └── generateToken.js
+│
+└── docs/
+    └── api-spec.md
