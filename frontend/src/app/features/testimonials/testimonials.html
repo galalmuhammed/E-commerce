@@ -1,0 +1,55 @@
+<div class="testimonials-container">
+  <div class="header">
+    <h1>Customer Testimonials</h1>
+    <p>See what our customers have to say about us</p>
+  </div>
+
+  <!-- Testimonial Submission Form (Only for authenticated users) -->
+  <div class="testimonial-form" *ngIf="isAuthenticated">
+    <h2>Share Your Experience</h2>
+    <form (ngSubmit)="submitTestimonial($event)">
+      <div class="form-group">
+        <label for="testimonial">Your Testimonial:</label>
+        <textarea
+          id="testimonial"
+          [(ngModel)]="newTestimonial"
+          name="testimonial"
+          placeholder="Tell us about your experience with our products..."
+          rows="4"
+          required
+          [disabled]="isSubmitting"
+        ></textarea>
+      </div>
+      <button type="submit" [disabled]="isSubmitting">
+        {{ isSubmitting ? 'Submitting...' : 'Submit Testimonial' }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Login prompt for non-authenticated users -->
+  <div class="login-prompt" *ngIf="!isAuthenticated">
+    <p>Please <a routerLink="/login">login</a> to submit a testimonial.</p>
+  </div>
+
+  <!-- Testimonials Display -->
+  <div class="testimonials-list">
+    <h2>What Our Customers Say</h2>
+    <div class="testimonials-grid" *ngIf="testimonials.length > 0; else noTestimonials">
+      <div class="testimonial-card" *ngFor="let testimonial of testimonials">
+        <div class="testimonial-content">
+          <p>"{{ testimonial.message }}"</p>
+        </div>
+        <div class="testimonial-author">
+          <span class="author-name">{{ testimonial.user.name }}</span>
+          <span class="testimonial-date">{{ testimonial.createdAt | date:'mediumDate' }}</span>
+        </div>
+      </div>
+    </div>
+    
+    <ng-template #noTestimonials>
+      <div class="no-testimonials">
+        <p>No testimonials available yet. Be the first to share your experience!</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

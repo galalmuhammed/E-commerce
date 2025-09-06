@@ -1,0 +1,27 @@
+<div class="main-page">
+  <div class="container py-4">
+    <h3>Checkout</h3>
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="mb-3">
+        <label class="form-label">Address</label>
+        <input class="form-control" formControlName="address" />
+        <div class="text-danger" *ngIf="form.controls.address.touched && form.controls.address.invalid">
+          Required (min 6)
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Phone</label>
+        <input class="form-control" formControlName="phone" />
+        <div class="text-danger" *ngIf="form.controls.phone.touched && form.controls.phone.invalid">
+          Valid phone required
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Notes</label>
+        <textarea class="form-control" formControlName="notes"></textarea>
+      </div>
+      <div class="text-danger mb-2" *ngIf="errorMsg">{{ errorMsg }}</div>
+      <button class="btn btn-primary" type="submit" [disabled]="loading || form.invalid">Place Order</button>
+    </form>
+  </div>
+</div>

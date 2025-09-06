@@ -1,0 +1,38 @@
+<div class="row g-4">
+  <div class="col-12 d-flex align-items-center justify-content-between">
+    <input
+      class="form-control me-3"
+      style="max-width: 360px"
+      type="text"
+      placeholder="Search products..."
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="onSearchChange()"
+    />
+    <select class="form-select" style="max-width: 240px" [(ngModel)]="selectedCategoryId" (change)="onCategoryChange()">
+      <option value="">All categories</option>
+      @for (cat of categories; track cat._id) {
+      <option [value]="cat._id">{{ cat.name }}</option>
+      }
+    </select>
+  </div>
+
+  @for (product of filteredProducts; track product._id) {
+  <div class="col-3">
+    <div class="card" style="width: 18rem">
+      <img [src]="product.image" alt="Product Image" (error)="onImgError($event, product)" />
+      <div class="card-body">
+        <h5 class="card-title">{{ product.title }}</h5>
+        <p class="card-text">
+          {{ product.description }}
+        </p>
+        <p>{{ product.price }}$</p>
+        <div class="mx-auto" style="width: fit-content">
+          <a class="btn btn-primary me-2" [routerLink]="['/product', product._id]">View Details</a>
+          <a class="btn btn-primary" (click)="$event.preventDefault(); addToCart(product)">Add to cart</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  }
+</div>

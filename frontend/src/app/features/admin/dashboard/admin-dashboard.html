@@ -1,0 +1,69 @@
+<div class="main-page">
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="mb-4">Admin Dashboard</h2>
+
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-tabs mb-4">
+          <li class="nav-item">
+            <button class="nav-link" [class.active]="activeTab === 'users'" (click)="onTabChange('users')">
+              User Management
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" [class.active]="activeTab === 'products'" (click)="onTabChange('products')">
+              Product Management
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" [class.active]="activeTab === 'categories'" (click)="onTabChange('categories')">
+              Category Management
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="nav-link"
+              [class.active]="activeTab === 'testimonials'"
+              (click)="onTabChange('testimonials')"
+            >
+              Testimonial Management
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" [class.active]="activeTab === 'faqs'" (click)="onTabChange('faqs')">
+              FAQ Management
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" [class.active]="activeTab === 'contacts'" (click)="onTabChange('contacts')">
+              Contact Management
+            </button>
+          </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+          <div *ngIf="activeTab === 'users'" class="tab-pane active">
+            <app-user-management></app-user-management>
+          </div>
+          <div *ngIf="activeTab === 'products'" class="tab-pane active">
+            <app-product-management></app-product-management>
+          </div>
+          <div *ngIf="activeTab === 'categories'" class="tab-pane active">
+            <app-category-management></app-category-management>
+          </div>
+          <div *ngIf="activeTab === 'testimonials'" class="tab-pane active">
+            <app-testimonial-management></app-testimonial-management>
+          </div>
+          <div *ngIf="activeTab === 'faqs'" class="tab-pane active">
+            <app-faq-management></app-faq-management>
+          </div>
+          <div *ngIf="activeTab === 'contacts'" class="tab-pane active">
+            <app-contact-management></app-contact-management>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

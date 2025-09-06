@@ -1,0 +1,23 @@
+/* Highlight active link */
+.nav-link.active {
+  font-weight: 600;
+  color: #ffc107 !important; /* gold/yellow accent */
+}
+
+/* Hover effect */
+.nav-link:hover {
+  color: #f8f9fa !important; /* light text */
+  text-decoration: underline;
+}
+
+/* Brand logo text */
+.navbar-brand span {
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+
+ul li a {
+  text-decoration: none;
+  font-size: 1.2rem;
+}

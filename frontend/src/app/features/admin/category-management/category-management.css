@@ -1,0 +1,15 @@
+.category-management .btn-group .btn {
+  margin-right: 2px;
+}
+
+.category-management .btn-group .btn:last-child {
+  margin-right: 0;
+}
+
+.table th {
+  border-top: none;
+}
+
+.table td strong {
+  color: #495057;
+}

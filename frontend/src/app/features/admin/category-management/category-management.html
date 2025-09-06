@@ -1,0 +1,122 @@
+<div class="main-page">
+  <div class="category-management">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4>Category Management</h4>
+      <div>
+        <button class="btn btn-primary me-2" (click)="loadCategories()" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+          Refresh
+        </button>
+        <button class="btn btn-success" (click)="showAddCategoryForm()">
+          <i class="fas fa-plus"></i> Add Category
+        </button>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="alert alert-danger" *ngIf="errorMsg" role="alert">
+      {{ errorMsg }}
+    </div>
+    <div class="alert alert-success" *ngIf="successMsg" role="alert">
+      {{ successMsg }}
+    </div>
+
+    <!-- Add/Edit Category Form -->
+    <div class="card mb-4" *ngIf="showAddForm">
+      <div class="card-header">
+        <h5>{{ editingCategory ? "Edit Category" : "Add New Category" }}</h5>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="categoryForm" (ngSubmit)="submitCategory()">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="mb-3">
+                <label class="form-label">Category Name *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="name"
+                  placeholder="Enter category name"
+                  [class.is-invalid]="categoryForm.controls.name.touched && categoryForm.controls.name.invalid"
+                />
+                <div
+                  class="invalid-feedback"
+                  *ngIf="categoryForm.controls.name.touched && categoryForm.controls.name.invalid"
+                >
+                  <div *ngIf="categoryForm.controls.name.errors?.['required']">Category name is required</div>
+                  <div *ngIf="categoryForm.controls.name.errors?.['minlength']">
+                    Category name must be at least 2 characters
+                  </div>
+                  <div *ngIf="categoryForm.controls.name.errors?.['maxlength']">
+                    Category name must be less than 50 characters
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary" [disabled]="loading || categoryForm.invalid">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+              {{ editingCategory ? "Update Category" : "Add Category" }}
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="cancelForm()" [disabled]="loading">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Categories Table -->
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let category of categories">
+            <td>
+              <strong>{{ category.name }}</strong>
+            </td>
+            <td>{{ category.createdAt | date : "short" }}</td>
+            <td>{{ category.updatedAt | date : "short" }}</td>
+            <td>
+              <div class="btn-group" role="group">
+                <button
+                  class="btn btn-warning btn-sm"
+                  (click)="editCategory(category)"
+                  [disabled]="loading"
+                  title="Edit Category"
+                >
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <button
+                  class="btn btn-danger btn-sm"
+                  (click)="deleteCategory(category)"
+                  [disabled]="loading"
+                  title="Delete Category"
+                >
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="categories.length === 0 && !loading">
+            <td colspan="4" class="text-center text-muted">No categories found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="text-center py-4">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+</div>

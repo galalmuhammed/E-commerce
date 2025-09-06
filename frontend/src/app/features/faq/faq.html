@@ -1,0 +1,58 @@
+<div class="faq-container">
+  <div class="header">
+    <h1>Frequently Asked Questions</h1>
+    <p>Find answers to common questions about our products and services</p>
+  </div>
+
+  <!-- Question Submission Form (Only for authenticated users) -->
+  <div class="question-form" *ngIf="isAuthenticated">
+    <h2>Ask a Question</h2>
+    <form (ngSubmit)="submitQuestion($event)">
+      <div class="form-group">
+        <label for="question">Your Question:</label>
+        <textarea
+          id="question"
+          [(ngModel)]="newQuestion"
+          name="question"
+          placeholder="What would you like to know about our products or services?"
+          rows="4"
+          required
+          [disabled]="isSubmitting"
+        ></textarea>
+      </div>
+      <button type="submit" [disabled]="isSubmitting">
+        {{ isSubmitting ? 'Submitting...' : 'Submit Question' }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Login prompt for non-authenticated users -->
+  <div class="login-prompt" *ngIf="!isAuthenticated">
+    <p>Please <a routerLink="/login">login</a> to ask a question.</p>
+  </div>
+
+  <!-- FAQs Display -->
+  <div class="faqs-list">
+    <h2>Common Questions & Answers</h2>
+    <div class="faqs-grid" *ngIf="faqs.length > 0; else noFAQs">
+      <div class="faq-item" *ngFor="let faq of faqs">
+        <div class="question">
+          <h3>{{ faq.question }}</h3>
+        </div>
+        <div class="answer">
+          <p>{{ faq.answer }}</p>
+        </div>
+        <div class="faq-meta">
+          <span class="asked-by">Asked by: {{ faq.askedBy.name }}</span>
+          <span class="faq-date">{{ faq.createdAt | date:'mediumDate' }}</span>
+        </div>
+      </div>
+    </div>
+    
+    <ng-template #noFAQs>
+      <div class="no-faqs">
+        <p>No FAQs available yet. Be the first to ask a question!</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

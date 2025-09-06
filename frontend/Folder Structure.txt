@@ -1,0 +1,68 @@
+ecommerce-frontend/
+│
+├── angular.json
+├── package.json
+├── tsconfig.json
+│
+├── src/
+│   ├── main.ts
+│   ├── index.html
+│   ├── styles.scss
+│   │
+│   ├── app/
+│   │   ├── app.module.ts
+│   │   ├── app-routing.module.ts
+│   │   │
+│   │   ├── core/                         # Global singletons (services, guards, interceptors)
+│   │   │   ├── guards/
+│   │   │   │   └── auth.guard.ts
+│   │   │   ├── interceptors/
+│   │   │   │   └── auth.interceptor.ts
+│   │   │   └── services/
+│   │   │       ├── auth.service.ts
+│   │   │       ├── user.service.ts
+│   │   │       ├── product.service.ts
+│   │   │       ├── category.service.ts
+│   │   │       ├── cart.service.ts
+│   │   │       ├── order.service.ts
+│   │   │       ├── testimonial.service.ts
+│   │   │       ├── faq.service.ts
+│   │   │       └── contact.service.ts
+│   │   │
+│   │   ├── shared/                       # Reusable UI pieces (components, pipes, directives)
+│   │   │   ├── components/
+│   │   │   │   ├── navbar/
+│   │   │   │   ├── footer/
+│   │   │   │   └── product-card/
+│   │   │   ├── pipes/
+│   │   │   └── directives/
+│   │   │
+│   │   ├── features/                     # Main feature modules/pages
+│   │   │   ├── auth/
+│   │   │   │   ├── login/
+│   │   │   │   └── register/
+│   │   │   ├── home/
+│   │   │   ├── products/
+│   │   │   │   ├── product-list/
+│   │   │   │   └── product-detail/
+│   │   │   ├── categories/
+│   │   │   ├── cart/
+│   │   │   ├── orders/
+│   │   │   │   ├── order-list/
+│   │   │   │   └── order-detail/
+│   │   │   ├── testimonials/
+│   │   │   ├── faq/
+│   │   │   ├── contact/
+│   │   │   └── admin/                    # Admin dashboard pages
+│   │   │       ├── dashboard/
+│   │   │       ├── manage-products/
+│   │   │       ├── manage-users/
+│   │   │       └── manage-orders/
+│   │   │
+│   │   └── layouts/                      # App layouts
+│   │       ├── main-layout/
+│   │       └── admin-layout/
+│   │
+│   └── assets/                           # Static assets
+│       ├── images/
+│       └── styles/

@@ -1,0 +1,134 @@
+<div class="main-page">
+  <div class="faq-management">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4>FAQ Management</h4>
+      <div>
+        <button class="btn btn-primary" (click)="loadFAQs()" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+          Refresh
+        </button>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="alert alert-danger" *ngIf="errorMsg" role="alert">
+      {{ errorMsg }}
+    </div>
+    <div class="alert alert-success" *ngIf="successMsg" role="alert">
+      {{ successMsg }}
+    </div>
+
+    <!-- FAQs Table -->
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>Asked By</th>
+            <th>Question</th>
+            <th>Answer</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let faq of faqs">
+            <td>{{ faq.askedBy.name }}</td>
+            <td class="text-truncate" style="max-width: 250px">{{ faq.question }}</td>
+            <td class="text-truncate" style="max-width: 250px">
+              <span *ngIf="hasAnswer(faq.answer)" class="text-success">
+                <i class="fas fa-check-circle"></i> Answered
+              </span>
+              <span *ngIf="!hasAnswer(faq.answer)" class="text-warning">
+                <i class="fas fa-exclamation-circle"></i> No Answer
+              </span>
+            </td>
+            <td>
+              <span [class]="getStatusBadgeClass(faq.isApproved)">
+                {{ getStatusText(faq.isApproved) }}
+              </span>
+            </td>
+            <td>{{ faq.createdAt | date : "short" }}</td>
+            <td>
+              <div class="btn-group" role="group">
+                <button class="btn btn-warning btn-sm" (click)="editFaq(faq)" [disabled]="loading" title="Edit FAQ">
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="btn btn-danger btn-sm" (click)="deleteFaq(faq)" [disabled]="loading" title="Delete FAQ">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="faqs.length === 0 && !loading">
+            <td colspan="6" class="text-center text-muted">No FAQs found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" *ngIf="isEditing" tabindex="-1" style="display: block; background: rgba(0, 0, 0, 0.5)">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit FAQ</h5>
+            <button type="button" class="btn-close" (click)="cancelEdit()"></button>
+          </div>
+          <div class="modal-body">
+            <form (ngSubmit)="saveFaq()">
+              <div class="mb-3">
+                <label for="question" class="form-label">Question:</label>
+                <textarea
+                  id="question"
+                  class="form-control"
+                  [(ngModel)]="editForm.question"
+                  name="question"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="answer" class="form-label">Answer:</label>
+                <textarea
+                  id="answer"
+                  class="form-control"
+                  [(ngModel)]="editForm.answer"
+                  name="answer"
+                  rows="4"
+                  placeholder="Provide a detailed answer..."
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="editForm.isApproved"
+                    name="isApproved"
+                    id="isApproved"
+                  />
+                  <label class="form-check-label" for="isApproved"> Approve for display </label>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="saveFaq()" [disabled]="loading">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="text-center py-4">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+</div>

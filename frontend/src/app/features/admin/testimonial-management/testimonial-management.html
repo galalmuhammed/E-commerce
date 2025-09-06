@@ -1,0 +1,124 @@
+<div class="main-page">
+  <div class="testimonial-management">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4>Testimonial Management</h4>
+      <div>
+        <button class="btn btn-primary" (click)="loadTestimonials()" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+          Refresh
+        </button>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="alert alert-danger" *ngIf="errorMsg" role="alert">
+      {{ errorMsg }}
+    </div>
+    <div class="alert alert-success" *ngIf="successMsg" role="alert">
+      {{ successMsg }}
+    </div>
+
+    <!-- Testimonials Table -->
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>Author</th>
+            <th>Message</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let testimonial of testimonials">
+            <td>{{ testimonial.user.name }}</td>
+            <td class="text-truncate" style="max-width: 300px">{{ testimonial.message }}</td>
+            <td>
+              <span [class]="getStatusBadgeClass(testimonial.isApproved)">
+                {{ getStatusText(testimonial.isApproved) }}
+              </span>
+            </td>
+            <td>{{ testimonial.createdAt | date : "short" }}</td>
+            <td>
+              <div class="btn-group" role="group">
+                <button
+                  class="btn btn-warning btn-sm"
+                  (click)="editTestimonial(testimonial)"
+                  [disabled]="loading"
+                  title="Edit Testimonial"
+                >
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <button
+                  class="btn btn-danger btn-sm"
+                  (click)="deleteTestimonial(testimonial)"
+                  [disabled]="loading"
+                  title="Delete Testimonial"
+                >
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="testimonials.length === 0 && !loading">
+            <td colspan="5" class="text-center text-muted">No testimonials found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" *ngIf="isEditing" tabindex="-1" style="display: block; background: rgba(0, 0, 0, 0.5)">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Testimonial</h5>
+            <button type="button" class="btn-close" (click)="cancelEdit()"></button>
+          </div>
+          <div class="modal-body">
+            <form (ngSubmit)="saveTestimonial()">
+              <div class="mb-3">
+                <label for="message" class="form-label">Message:</label>
+                <textarea
+                  id="message"
+                  class="form-control"
+                  [(ngModel)]="editForm.message"
+                  name="message"
+                  rows="4"
+                  required
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="editForm.isApproved"
+                    name="isApproved"
+                    id="isApproved"
+                  />
+                  <label class="form-check-label" for="isApproved"> Approve for display </label>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="saveTestimonial()" [disabled]="loading">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="text-center py-4">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+</div>

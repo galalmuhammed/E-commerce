@@ -1,0 +1,15 @@
+.user-management .btn-group .btn {
+  margin-right: 2px;
+}
+
+.user-management .btn-group .btn:last-child {
+  margin-right: 0;
+}
+
+.badge {
+  font-size: 0.75em;
+}
+
+.table th {
+  border-top: none;
+}

@@ -1,0 +1,38 @@
+.contact-management {
+  padding: 20px;
+}
+
+.table-warning {
+  background-color: #fff3cd !important;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal.show {
+  display: block !important;
+}
+
+.btn-group .btn {
+  margin-right: 5px;
+}
+
+.btn-group .btn:last-child {
+  margin-right: 0;
+}
+
+.badge {
+  font-size: 0.75em;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+}
